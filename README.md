@@ -41,6 +41,11 @@ Readonly - Facility for creating read-only scalars, arrays, hashes
     Readonly my %has => (key => value, key => value, ...);
     Readonly my $sca; # Implicit undef, readonly value
 
+    # package lexicals
+    Readonly our $sca => $initial_value;
+    # "our" package declarations work for @arr and %has like above
+    # as well as Readonly::(Scalar|Array|Hash) our ...
+
     # Alternate form (for Perls earlier than v5.8)
     Readonly    \$sca => $initial_value;
     Readonly \my $sca => $initial_value;
@@ -150,10 +155,10 @@ no symbol table entry). Also, the following similar constructs do **not** work:
 ## Pros
 
 Readonly.pm, on the other hand, will work with global variables and with
-lexical ("my") variables. It will create scalars, arrays, or hashes, all of
-which look and work like normal, read-write Perl variables. You can use them
-in scalar context, in list context; you can take references to them, pass them
-to functions, anything.
+lexical ("my", "our") variables. It will create scalars, arrays, or hashes,
+all of which look and work like normal, read-write Perl variables. You can use
+them in scalar context, in list context; you can take references to them, pass
+them to functions, anything.
 
 Readonly.pm also works well with complex data structures, allowing you to tag
 the whole structure as nonmodifiable, or just the top level.
